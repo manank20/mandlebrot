@@ -1,5 +1,6 @@
 use num::Complex;
 use std::str::FromStr;
+use test::RunIgnored::No;
 
 
 fn escape_time(c: Complex<f64>, limit: usize) -> Option<usize> {
@@ -24,6 +25,30 @@ fn parse_pair<T: FromStr> (s: &str, separator: char) -> Option<(T, T)> {
     }
 }
 
+fn parse_complex(s: &str) -> Option<Complex<f64>> {
+    match parse_pair(s, ',') {
+        some(re, im) => Some(Complex{re, im}),
+        None => None
+    }
+}
+
+fn pixel_to_point(bounds: usize, pixel: usize, upper_left: Complex<f64>, lower_right: Complex<f64>) -> Complex<f64>{
+    let (width, height) = (lower_right.re - upper_left.re,  upper_left.im - lower_right.im);
+    Complex {re: upper_left.re + pixel.0 * width as f64 / bounds.0 as f64, im: upper_left.im - pixel.1 * height as f64/ bounds.1 as f64}
+}
+
+fn render(pixels: &mut [u8], bounds: (usize, usize), upper_left: Complex<f64>, lower_right: Complex<f64>) {
+    assert!(pixels.len(), bounds.0 * bounds.1);
+    for row in 0..bounds.1 {
+        for column in 0..bounds.0 {
+            let point = pixel_to_point(bounds, (column, row), upper_left, lower_right);
+            pixels[row*bounds.0+column] = match escape_time(point, 255) {
+                None => 0,
+                Some(count) => 255 - count as u8
+            }
+        }
+    }
+}
 
 fn main() {
     println!("Hello, world!");
