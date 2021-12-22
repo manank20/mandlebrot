@@ -4,7 +4,6 @@ use image::ColorType;
 use image::png::PNGEncoder;
 use std::fs::File;
 use std::env;
-use std::env::args;
 
 
 fn escape_time(c: Complex<f64>, limit: usize) -> Option<usize> {
