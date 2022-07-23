@@ -57,7 +57,7 @@ fn render(pixels: &mut [u8], bounds: (usize, usize), upper_left: Complex<f64>, l
         
     }
     rayon::scope(|s| {
-        for _ in 0..10 {
+        for _ in 0..30 {
             s.spawn(|_| {
                 while let Steal::Success(x) = work.steal() {
                     let (i, val) = x;
