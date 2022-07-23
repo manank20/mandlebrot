@@ -4,8 +4,8 @@ use image::ColorType;
 use image::png::PNGEncoder;
 use std::fs::File;
 use std::env;
-use rayon::prelude::*;
-use crossbeam::deque::{Steal,Injector,Worker};
+use crossbeam::deque::{Steal,Injector};
+use rayon;
 
 
 fn escape_time(c: Complex<f64>, limit: usize) -> Option<usize> {
