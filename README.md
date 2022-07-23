@@ -1,6 +1,6 @@
 # mandlebrot
 ## About
-A multi-threaded mandelbrot set plotter written in rust with crossbeam and rayon scoped threads. The branch non-parallel contains the serial version.
+A multi-threaded mandelbrot set plotter written in rust with crossbeam and rayon scoped threads. The branch non-parallel contains the serial version (which is from the book "Programming Rust" by Jim Blandy, Jason Orendorff.)
 ## Usage
 
 ```
